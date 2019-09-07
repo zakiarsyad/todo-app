@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id"
+        content="450205956534-t8mv0qj0kqcc53van5mbbahtk9vg8b40.apps.googleusercontent.com">
+    <script src="https://kit.fontawesome.com/fcfee59ed2.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- DATEPICKER -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+    <!-- SWITCH ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <style>
+        .center {
+            text-align: center
+        }
+
+        .border {
+            border-radius: 20px;
+            box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.15);
+            padding: 5%;
+            width: 30%;
+        }
+    </style>
+
+    <title>fancy todo</title>
+</head>
+
+<body>
+    <!-- REGISTER FORM -->
+    <div class="container border mt-5" id="registerForm">
+        <h1 class="center mb-5">Register</h1>
+        <form action="#" method="POST">
+            <div class="mt-2 mb-3">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="emailReg">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="passwordReg">
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit" class="btn btn-primary mb-2" id="registerButton">Register</button>
+                <p>already have an account ? <a href="" id="loginHere">login here</a></p>
+                <p>or login with google</p>
+                <div class="g-signin2 center" data-onsuccess="onSignIn"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div class="container border mt-5" id="loginForm" style="display: none">
+        <h1 class="center mb-5">Log In</h1>
+        <form action="#" method="POST">
+            <div class="mt-2 mb-3">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="emailLogin">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="passwordLogin">
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit" class="btn btn-primary mb-2" id="loginButton">Log In</button>
+                <p>register a new account ? <a href="" id="registerHere">register here</a></p>
+                <p>or login with google</p>
+                <div class="g-signin2 center" data-onsuccess="onSignIn"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- ADD NEW TODO -->
+    <div class="container border mt-3" id="addNewForm" style="display: none">
+        <h1 class="center mb-5">Add a new todo</h1>
+        <form action="#" method="POST">
+            <div class="mt-2 mb-3" id="xxx">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="nameAdd">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea type="text" class="form-control" id="descriptionAdd" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="text" class="form-control" id="dueDateAdd">
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit" class="btn btn-primary mb-2" id="createButton">create</button>
+            </div>
+            <div class="center">
+                <a href="#" id="cancelAdd">cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div id="mainPage" style="display: none">
+        <!-- MENU -->
+        <div class="center p-3 px-md-4 mb-3 bg-white sticky-top shadow-sm">
+            <div class="btn-group btn-group-toggle">
+                <label id="allTodosButton" class="btn btn-primary">
+                    <input type="radio" checked> All Todos
+                </label>
+                <label id="uncompleteButton" class="btn btn-primary">
+                    <input type="radio"> Uncomplete
+                </label>
+                <label id="completedButton" class="btn btn-primary">
+                    <input type="radio"> Completed
+                </label>
+            </div>
+            <a class="btn btn-outline-success" href="#" id="addNew">Add a new TODO</a>
+            <a class="btn btn-outline-secondary" href="#" id="logout" onclick="signOut();">Log Out</a>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="container" id="content">
+            <p id="userIn" style="color: #007bff"></p>
+            <h3 id="position"></h3>
+            <div class="card-columns" id="Todos">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <!-- DATEPICKER -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
