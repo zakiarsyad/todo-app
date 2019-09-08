@@ -260,7 +260,7 @@ function showCard(where, data) {
                     <p class="card-text" style="color: #007bff">${value.description}</p>
                     <p class="card-text" style="color: #007bff">due date: <span style="color: red">${new Date(value.due_date).toString().substr(0, 15)}</span></p>
                     <p class="card-text"><small class="text-muted">status : ${value.status}</small></p>
-                    <button class="updateId btn btn-success" value="${value._id}"><i class="far fa-check-square"></i></button>
+                    ${value.status === 'uncomplete' ? `<button class="updateId btn btn-success" value="${value._id}"><i class="far fa-check-square"></i></button>` : ''}
                     <button href="#" class="deleteId btn btn-danger" value="${value._id}"><i class="far fa-trash-alt"></i></button>
                 </div>
             </div>`
@@ -335,29 +335,26 @@ function deleteTodo() {
 }
 
 // timer
-// function timer(timer) {
-//     // const countDownTime = new Date("2020-10-10T18:07:32.606Z")
-//     const countDownTime = new Date(timer)
-//     console.log($(this).value);
-//     // console.log($(this).val());
+// function timer(time) {
+//     // var countDownTime = new Date("2019-09-22T17:00:00.000Z")
+//     var countDownTime = new Date(time)
 
-//     const x = setInterval(function () {
+//     var x = setInterval(function () {
 
-//         const now = new Date().getTime();
+//         var now = new Date().getTime();
 
-//         const distance = countDownTime - now;
+//         var distance = countDownTime - now;
 
-//         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+//         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 //         $(".countdown").html(`${days}d ${hours}h ${minutes}m ${seconds}s`)
 
 //         if (distance < 0) {
 //             clearInterval(x);
 //             $(".countdown").html(`time is up`)
-//             // document.getElementById("button").disabled = true
 //         }
 //     }, 1000);
 // }
