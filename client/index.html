@@ -13,9 +13,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+    <!-- CSS Files -->
+    <link href="./css/material-kit.css" rel="stylesheet" />
+
     <!-- DATEPICKER -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <!-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" /> -->
 
     <!-- SWITCH ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -29,7 +37,7 @@
             border-radius: 20px;
             box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.15);
             padding: 5%;
-            width: 30%;
+            width: 40%;
         }
     </style>
 
@@ -38,7 +46,7 @@
 
 <body>
     <!-- REGISTER FORM -->
-    <div class="container border mt-5" id="registerForm">
+    <div class="container border mt-5 bg-white" id="registerForm">
         <h1 class="center mb-5">Register</h1>
         <form action="#" method="POST">
             <div class="mt-2 mb-3">
@@ -52,7 +60,7 @@
                 </div>
             </div>
             <div class="center">
-                <button type="submit" class="btn btn-primary mb-2" id="registerButton">Register</button>
+                <button type="submit" class="btn btn-outline-primary mb-2" id="registerButton">Register</button>
                 <p>already have an account ? <a href="" id="loginHere">login here</a></p>
                 <p>or login with google</p>
                 <div class="g-signin2 center" data-onsuccess="onSignIn"></div>
@@ -61,7 +69,7 @@
     </div>
 
     <!-- LOGIN FORM -->
-    <div class="container border mt-5" id="loginForm" style="display: none">
+    <div class="container border mt-5 bg-white" id="loginForm" style="display: none">
         <h1 class="center mb-5">Log In</h1>
         <form action="#" method="POST">
             <div class="mt-2 mb-3">
@@ -75,7 +83,7 @@
                 </div>
             </div>
             <div class="center">
-                <button type="submit" class="btn btn-primary mb-2" id="loginButton">Log In</button>
+                <button type="submit" class="btn btn-outline-primary mb-2" id="loginButton">Log In</button>
                 <p>register a new account ? <a href="" id="registerHere">register here</a></p>
                 <p>or login with google</p>
                 <div class="g-signin2 center" data-onsuccess="onSignIn"></div>
@@ -84,12 +92,12 @@
     </div>
 
     <!-- ADD NEW TODO -->
-    <div class="container border mt-3" id="addNewForm" style="display: none">
+    <div class="container border mt-3 bg-white" id="addNewForm" style="display: none">
         <h1 class="center mb-5">Add a new todo</h1>
         <form action="#" method="POST">
             <div class="mt-2 mb-3" id="xxx">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Todo Name</label>
                     <input type="text" class="form-control" id="nameAdd">
                 </div>
                 <div class="form-group">
@@ -98,68 +106,103 @@
                 </div>
                 <div class="form-group">
                     <label>Due Date</label>
-                    <input type="text" class="form-control" id="dueDateAdd">
+                    <input type="text" class="form-control datetimepicker" id="dueDateAdd">
                 </div>
             </div>
             <div class="center">
-                <button type="submit" class="btn btn-primary mb-2" id="createButton">create</button>
-            </div>
-            <div class="center">
-                <a href="#" id="cancelAdd">cancel</a>
+                <button type="submit" class="btn btn-outline-success mb-2" id="createButton">create</button>
+                <button type="button" id="cancelAdd" class="btn btn-danger btn-link">cancel</button>
             </div>
         </form>
     </div>
 
     <!-- ADD NEW PROJECT -->
-    <div class="container border mt-3" id="addNewProjectForm" style="display: none">
+    <div class="container border mt-3 bg-white" id="addNewProjectForm" style="display: none">
         <h1 class="center mb-5">Add a new project</h1>
         <form action="#" method="POST">
             <div class="mt-2 mb-3" id="xxx">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Project Name</label>
                     <input type="text" class="form-control" id="projectNameAdd">
                 </div>
             </div>
             <div class="center">
-                <button type="submit" class="btn btn-primary mb-2" id="projectCreateButton">create</button>
-            </div>
-            <div class="center">
-                <a href="#" id="cancelAddProject">cancel</a>
+                <button type="submit" class="btn btn-outline-success mb-2" id="projectCreateButton">create</button>
+                <button type="button" id="cancelAddProject" class="btn btn-danger btn-link">cancel</button>
             </div>
         </form>
     </div>
 
     <!-- MAIN PAGE -->
     <div id="mainPage" style="display: none">
-        <!-- MENU -->
+
+        <!-- NAVBAR -->
         <div class="center p-3 px-md-4 mb-3 bg-white sticky-top shadow-sm">
-            <div class="btn-group btn-group-toggle">
-                <label id="allTodosButton" class="btn btn-primary">
-                    <input type="radio" checked> All Todos
-                </label>
-                <label id="uncompleteButton" class="btn btn-primary">
-                    <input type="radio"> Uncomplete
-                </label>
-                <label id="completedButton" class="btn btn-primary">
-                    <input type="radio"> Completed
-                </label>
-                <label id="myProjectButton" class="btn btn-primary">
-                    <input type="radio"> My Project
-                </label>
-            </div>
+            <p id="userIn" style="color: #007bff"></p>
             <a class="btn btn-outline-success" href="#" id="addNew">Add a new TODO</a>
             <a class="btn btn-outline-success" href="#" id="addNewProject">Add a new project</a>
-            <a class="btn btn-outline-secondary" href="#" id="logout" onclick="signOut();">Log Out</a>
+            <button class="btn btn-outline-secondary" href="#" id="logout" onclick="signOut();">Log Out</button>
         </div>
 
-        <!-- CONTENT -->
-        <div class="container" id="content">
-            <p id="userIn" style="color: #007bff"></p>
-            <h3 id="position"></h3>
-            <div class="card-columns" id="Todos">
+        <!-- PILLS -->
+        <div id="navigation-pills" class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-pills-icons flex-column" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#todoList" role="tab" data-toggle="tab">
+                                <i class="material-icons">list</i> Todos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="projectListButton" href="#projectList" role="tab" data-toggle="tab">
+                                <i class="material-icons">group</i> Projects
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="todoList">
+                            <div class="center ">
+                                <div class="btn-group btn-group-toggle ">
+                                    <label id="allTodosButton" class="btn btn-outline-primary">
+                                        <input type="radio" checked> All Todos
+                                    </label>
+                                    <label id="uncompleteButton" class="btn btn-outline-primary">
+                                        <input type="radio"> Uncomplete
+                                    </label>
+                                    <label id="completedButton" class="btn btn-outline-primary">
+                                        <input type="radio"> Completed
+                                    </label>
+                                </div>
+                            </div>
 
+                            <!-- TODOS -->
+                            <div class="container" id="content">
+                                <h3 id="position"></h3>
+                                <div class="card-columns" id="Todos">
+                            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="projectList">
+                            <h3>My Projects</h3>
+                            <div class="p-3 px-md-4 mb-3">
+                                <div class="btn-group btn-group-toggle" id="listOfUserProject">
+                                </div>
+                            </div>
+
+                            <!-- PROJECT -->
+                            <div class="container" id="Projects">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 
     <!-- Optional JavaScript -->
@@ -181,6 +224,22 @@
     <!-- DATEPICKER -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+    <!--   Core JS Files   -->
+    <script src="./js/jquery.min.js" type="text/javascript"></script>  
+    <script src="./js/popper.min.js" type="text/javascript"></script>
+    <script src="./js/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="./js/moment.min.js"></script>
+    	<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="./js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+    <script src="./js/material-kit.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            //init DateTimePickers
+            materialKit.initFormExtendedDatetimepickers();
+        });
+    </script>
 
     <script src="./js/index.js"></script>
     <script src="./js/project.js"></script>

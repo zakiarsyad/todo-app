@@ -2,21 +2,8 @@
 const server = 'http://localhost:3000'
 let position = ''
 
-
 $(document).ready(function () {
     getData(position)
-
-    // datepicker
-    const date_input = $('input[name="date"]') //our date input has the name "date"
-    const container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body"
-    const options = {
-        format: 'mm/dd/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-    };
-    date_input.datepicker(options)
-    $('#dueDateAdd').datepicker()
 
     $('#registerButton').click(function () {
         event.preventDefault()
@@ -137,13 +124,6 @@ $(document).ready(function () {
         $('#position').html(`Completed Todos`)
     })
 
-    $('#myProjectButton').click(function () {
-        event.preventDefault()
-        console.log(`myProjectButton clicked`)
-        getProject()
-        $('#position').html(`My Project`)
-    })
-
     $('#addNew').click(function () {
         event.preventDefault()
         console.log(`addNew clicked`)
@@ -196,55 +176,6 @@ $(document).ready(function () {
 
         $('#addNewForm').hide()
         $('#mainPage').show()
-    })
-
-    $('#addNewProject').click(function () {
-        event.preventDefault()
-        console.log(`addNewProject clicked`)
-        $('#mainPage').hide()
-        $('#addNewProjectForm').show()
-    })
-
-    $('#cancelAddProject').click(function () {
-        event.preventDefault()
-        console.log(`cancelAddProject clicked`)
-        $('#addNewProjectForm').hide()
-        $('#mainPage').show()
-    })
-
-    $('#projectCreateButton').click(function () {
-        event.preventDefault()
-        console.log(`projectCreateButton clicked`)
-        const name = $('#projectNameAdd').val()
-        Swal.showLoading()
-        console.log(name);
-
-        $.ajax({
-            method: "post",
-            url: `${server}/projects`,
-            headers: {
-                token: localStorage.getItem("token")
-            },
-            data: { name }
-        })
-            .done(project => {
-                Swal.fire(
-                    'Good job!',
-                    'Add a new project success!',
-                    'success'
-                )
-                $('#addNewProjectForm').hide()
-                $('#mainPage').show()
-                $('#projectNameAdd').empty()
-            })
-            .fail(err => {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: err.responseJSON.message,
-                })
-                console.log(err)
-            })
     })
 })
 
@@ -306,56 +237,6 @@ function getData(params) {
         })
 }
 
-// GET PROJECT
-function getProject() {
-    $.ajax({
-        method: "GET",
-        url: `${server}/projects`,
-        headers: {
-            token: localStorage.getItem("token")
-        }
-    })
-        .done(projects => {
-            // console.log(projects)
-            $('#Todos').empty()
-            showProject('#Todos', projects)
-        })
-        .fail(err => {
-            console.log(err)
-        })
-}
-
-// SHOW PROJECT
-function showProject(where, data) {
-    $.each(data, function (index, value) {
-        $(where).append(
-            `<div class="card border-primary">
-                <div class="card-body">
-                    <h4 class="card-title" style="color: #007bff">${value.name}</h4>
-
-                    <p class="card-text" style="color: #007bff">Users :</p>
-                    <p id="userList" class="card-text"></p>
-
-                    <p class="card-text" style="color: #007bff">Todos :</p>
-                    <p id="todoList" class="card-text"></p>
-
-                    <button class="updateId btn btn-success" value="${value._id}"><i class="fas fa-plus"></i></button>
-                    <button href="#" class="deleteId btn btn-danger" value="${value._id}"><i class="far fa-trash-alt"></i></button>
-                </div>
-            </div>`
-        )
-        showMember('#userList', value.userId)
-        showMember('#todoList', value.todoId)
-    })
-}
-
-function showMember(where, data) {
-    $.each(data, function (index, value) {
-        console.log(value)
-        $(where).append(`<p class="card-text">- ${value}</p>`)
-    })
-}
-
 // SHOW CARD
 function showCard(where, data) {
     $.each(data, function (index, value) {
@@ -363,11 +244,16 @@ function showCard(where, data) {
             `<div class="card border-primary">
                 <div class="card-body">
                     <h4 class="card-title" style="color: #007bff">${value.name}</h4>
+
                     <p class="card-text" style="color: #007bff">${value.description}</p>
+
                     <p class="card-text" style="color: #007bff">due date: <span style="color: red">${new Date(value.due_date).toString().substr(0, 15)}</span></p>
+
                     <p class="card-text"><small class="text-muted">status : ${value.status}</small></p>
-                    ${value.status === 'uncomplete' ? `<button class="updateId btn btn-success" value="${value._id}"><i class="far fa-check-square"></i></button>` : ''}
-                    <button href="#" class="deleteId btn btn-danger" value="${value._id}"><i class="far fa-trash-alt"></i></button>
+
+                    ${value.status === 'uncomplete' ? `<button class="updateId btn btn-outline-success" value="${value._id}"><i class="far fa-check-square"></i></button>` : ''}
+                    
+                    <button href="#" class="deleteId btn btn-outline-danger" value="${value._id}"><i class="far fa-trash-alt"></i></button>
                 </div>
             </div>`
         )
@@ -380,7 +266,6 @@ function updateStatus() {
         event.preventDefault()
         const todoId = $(this).val()
         Swal.showLoading()
-        // console.log(todoId)
 
         $.ajax({
             method: "patch",
@@ -414,8 +299,6 @@ function deleteTodo() {
     $('.deleteId').click(function () {
         event.preventDefault()
         const todoId = $(this).val()
-        Swal.showLoading()
-        // console.log(todoId)
 
         $.ajax({
             method: "delete",
