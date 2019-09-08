@@ -185,7 +185,7 @@ function addMember() {
         console.log(`addMemberToProject clicked`)
 
         $.ajax({
-            method: "post",
+            method: "patch",
             url: `${server}/projects/${projectId}`,
             headers: {
                 token: localStorage.getItem("token")
