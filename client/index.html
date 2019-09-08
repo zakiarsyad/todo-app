@@ -110,6 +110,25 @@
         </form>
     </div>
 
+    <!-- ADD NEW PROJECT -->
+    <div class="container border mt-3" id="addNewProjectForm" style="display: none">
+        <h1 class="center mb-5">Add a new project</h1>
+        <form action="#" method="POST">
+            <div class="mt-2 mb-3" id="xxx">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="projectNameAdd">
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit" class="btn btn-primary mb-2" id="projectCreateButton">create</button>
+            </div>
+            <div class="center">
+                <a href="#" id="cancelAddProject">cancel</a>
+            </div>
+        </form>
+    </div>
+
     <!-- MAIN PAGE -->
     <div id="mainPage" style="display: none">
         <!-- MENU -->
@@ -124,8 +143,12 @@
                 <label id="completedButton" class="btn btn-primary">
                     <input type="radio"> Completed
                 </label>
+                <label id="myProjectButton" class="btn btn-primary">
+                    <input type="radio"> My Project
+                </label>
             </div>
             <a class="btn btn-outline-success" href="#" id="addNew">Add a new TODO</a>
+            <a class="btn btn-outline-success" href="#" id="addNewProject">Add a new project</a>
             <a class="btn btn-outline-secondary" href="#" id="logout" onclick="signOut();">Log Out</a>
         </div>
 
@@ -160,6 +183,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
     <script src="./js/index.js"></script>
+    <script src="./js/project.js"></script>
 </body>
 
 </html>
