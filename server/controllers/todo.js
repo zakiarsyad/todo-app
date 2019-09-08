@@ -56,6 +56,10 @@ class TodoController {
                     changes
                 })
             })
+            .catch(err => {
+                console.log(err)
+                next
+            })
     }
 
     static delete(req, res, next) {

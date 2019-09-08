@@ -22,6 +22,10 @@ const todoSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }
 }, { timestamps: { createdAt: 'created_at' } })
 
