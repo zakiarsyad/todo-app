@@ -76,7 +76,7 @@ class ProjectController {
     static getProject(req, res, next) {
         const { id } = req.params
 
-        Project.findById(id)
+        Project.findById(id).populate('userId', 'email')
             .then(projects => {
                 res.status(200).json(projects)
             })
