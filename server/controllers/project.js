@@ -10,7 +10,7 @@ class ProjectController {
         Project.create({ name, userId })
             .then(project => {
                 res.status(201).json({
-                    message: `success create a todo`,
+                    message: `success create a project`,
                     project
                 })
             })
@@ -50,7 +50,7 @@ class ProjectController {
         Project.deleteOne({ _id: id })
             .then(changes => {
                 res.status(200).json({
-                    message: `success delete a todo`,
+                    message: `success delete a project`,
                     changes
                 })
             })
