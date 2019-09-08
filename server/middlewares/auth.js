@@ -36,7 +36,7 @@ function projectAuthorization(req, res, next) {
     Project.findOne({ _id: projectId })
         .then(project => {
             if (project) {
-                if (project.userId == userId) next()
+                if (project.userId.includes(userId)) next()
                 else next({ status: 403, message: `You are not authorized` })
             } else next({ status: 404, message: `Project id is invalid` })
         })

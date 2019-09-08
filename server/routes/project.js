@@ -1,12 +1,15 @@
 
 const router = require('express').Router()
 const ProjectController = require('../controllers/project')
-const { authentication, authorization } = require('../middlewares/auth')
+const { authentication, projectAuthorization } = require('../middlewares/auth')
 
 router.use(authentication)
 router.post('/', ProjectController.create)
 router.get('/', ProjectController.getProjects)
-router.get('/:id', ProjectController.getProject)
-router.post('/:id/', ProjectController.addMember)
+
+router.use('/:id', projectAuthorization)
+router.get('/:id', ProjectController.getProject) // belum terpakai
+router.post('/:id', ProjectController.addMember)
+router.delete('/:id', ProjectController.delete)
 
 module.exports = router

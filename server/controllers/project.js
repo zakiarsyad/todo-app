@@ -21,6 +21,7 @@ class ProjectController {
     }
 
     static addMember(req, res, next) {
+        console.log('asjdlakjdlakdjlaj');
         const { id } = req.params
         const { email } = req.body
 
@@ -34,6 +35,22 @@ class ProjectController {
             .then(changes => {
                 res.status(200).json({
                     message: `success add a member`,
+                    changes
+                })
+            })
+            .catch(err => {
+                console.log(err)
+                next
+            })
+    }
+
+    static delete(req, res, next) {
+        const { id } = req.params
+
+        Project.deleteOne({ _id: id })
+            .then(changes => {
+                res.status(200).json({
+                    message: `success delete a todo`,
                     changes
                 })
             })
@@ -57,9 +74,9 @@ class ProjectController {
     }
 
     static getProject(req, res, next) {
-        const userId = req.decode.id
+        const { id } = req.params
 
-        Project.find({ userId: { $in: userId } })
+        Project.findById(id)
             .then(projects => {
                 res.status(200).json(projects)
             })
